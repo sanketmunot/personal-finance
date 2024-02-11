@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Personal Finances",
@@ -13,8 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <UserButton afterSignOutUrl="/" />
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
